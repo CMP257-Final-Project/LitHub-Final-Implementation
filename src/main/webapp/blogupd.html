@@ -1,104 +1,235 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="BlogStyle.css">
-    <!-- TRIAL FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="BlogStyle.css">
+   <title>Write a Blog – Lit Hub</title>
+   <style>
+       .required-star { color: #f7cad0; margin-left: 2px; }
+       .status-toast {
+           position: fixed; top: 90px; left: 50%; transform: translateX(-50%);
+           z-index: 9999; padding: 14px 28px; border-radius: 50px;
+           font-family: "Instrument Serif", serif; font-size: 1.05rem;
+           box-shadow: 0 8px 30px rgba(0,0,0,0.2); transition: opacity 0.5s ease;
+           pointer-events: none; white-space: nowrap;
+       }
+       .toast-success { background: #6B8F71; color: white; border: 2px solid #a3c9a8; }
+       .toast-error   { background: #8B2635; color: white; border: 2px solid #f7cad0; }
+       #imagePreviewWrapper {
+           margin-top: 10px;
+           text-align: center;
+           display: none;
+       }
+       #imagePreview {
+           max-width: 200px;
+           max-height: 200px;
+           border-radius: 8px;
+       }
+   </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg ">
-        <div class="container-fluid">
-            <i class="fa fa-book-open" style="color: #D3968c; font-size: 3.5rem;"></i>
-            <a class="text-white title" href="#">Lit Hub</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link active text-white" aria-current="page" href="HomePage.html">ABOUT</a>
-                    <a class="nav-link active text-white" aria-current="page" href="findabook.html">FIND A BOOK</a>
-                    <a class="nav-link active text-white" aria-current="page" href="bloghomepage.html">BLOGS</a>
-                    <a class="nav-link active text-white" aria-current="page" href="Loginpage.html">SIGN IN</a>
-                    <button class="btn " type="button" onclick="window.location.href='Signuppage.html'">SIGN UP</button>
+   <nav class="navbar navbar-expand-lg">
+       <div class="container-fluid">
+           <i class="fa fa-book-open" style="color: #e8dbcb; font-size: 3.5rem;"></i>
+           <a class="text-white title" href="#">Lit Hub</a>
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+               data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+               aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div class="navbar-nav ms-auto">
+                   <a class="nav-link active text-white" href="HomePage.html">ABOUT</a>
+                   <a class="nav-link active text-white" href="findabook.html">FIND A BOOK</a>
+                   <a class="nav-link active text-white" href="bloghomepage.html">BLOGS</a>
+                   <a class="nav-link active text-white" id="navLogout" href="#" style="display:none;">LOGOUT</a>
+                   <button class="btn" type="button" id="navSignIn"
+                       onclick="window.location.href='Loginpage.html'">SIGN IN</button>
+               </div>
+           </div>
+       </div>
+   </nav>
+   <div id="statusToast" class="status-toast" style="display:none;"></div>
+   <div class="blog-section">
+       <div id="notLoggedInWarning" style="display:none; text-align:center; padding:30px 0;">
+           <p style="font-size:1.2rem; color:white;">You need to be signed in to post a blog.</p>
+           <button class="btn" type="button" onclick="window.location.href='Loginpage.html'">SIGN IN</button>
+       </div>
+      
+       <div id="loggedInContent">
+           <div class="blogintro">
+               <h1>Read any new books?</h1>
+               <h1>Tell us all about it!</h1>
+           </div>
+           <form class="blogform" id="blogForm" enctype="multipart/form-data">
+               <label for="book_title">Book Title *</label>
+               <input type="text" id="book_title" name="book_title" placeholder="Title of Book" required>
+               <label for="book_author">Author of Book *</label>
+               <input type="text" id="book_author" name="book_author" placeholder="Author of Book" required>
+               <label for="rating">Rating (0-5)</label>
+               <input type="range" id="rating" name="rating" min="0" max="5" value="0">
+               <p id="stars"></p>
+               <label for="photo">Upload Book Photo</label>
+               <input class="photobtn" type="file" id="photo" name="photo" accept="image/*">
+              
+               <div id="imagePreviewWrapper">
+                   <img id="imagePreview" alt="Preview">
+               </div>
+               <label for="blog">Blog Away! *</label>
+               <textarea class="blog"
+                   id="blog"
+                   name="blog"
+                   placeholder="Write your review here..."
+                   maxlength="10000"
+                   required></textarea>
+               <div class="char-count">
+                   <span id="count">0</span>/10000
+               </div>
+               <button class="submit" type="submit" id="submitBtn">Submit Review</button>
+               <button type="button" class="submit"
+                   onclick="window.location.href='bloghomepage.html'">Go Back</button>
+           </form>
+       </div>
+   </div>
+   <footer>
+       <div class="container">
+           <div class="row">
+               <div class="col-12 col-sm-4">
+                   <h3 class="footer-title">Community</h3>
+                   <ul class="footer-links"><li><a href="#">Articles</a></li></ul>
+               </div>
+               <div class="col-12 col-sm-4">
+                   <h3 class="footer-title">Company</h3>
+                   <ul class="footer-links"><li><a href="#">About / Contact</a></li></ul>
+               </div>
+               <div class="col-12 col-sm-4">
+                   <h3 class="footer-title">Follow</h3>
+                   <p class="footer-links">
+                       <a href="#"><i class="fab fa-facebook"></i> Facebook</a>&ensp;&ensp;&ensp;&ensp;&ensp;
+                       <a href="#"><i class="fab fa-twitter"></i> Twitter</a>&ensp;&ensp;&ensp;&ensp;&ensp;
+                       <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                   </p>
+               </div>
+           </div>
+           <div class="row footer-bottom">
+               <div class="col-12 text-center">
+                   <small style="color:white;">&copy; 2026 Lit Hub LLC. All Rights Reserved.</small>
+               </div>
+           </div>
+       </div>
+   </footer>
+   <script>
+       window.addEventListener("DOMContentLoaded", () => {
+           if (!LitHubAuth.isLoggedIn()) {
+               document.getElementById('loggedInContent').style.display = 'none';
+               document.getElementById('notLoggedInWarning').style.display = 'block';
+           } else {
+               document.getElementById('navLogout').style.display = 'inline-block';
+               document.getElementById('navSignIn').style.display = 'none';
+               document.getElementById('loggedInContent').style.display = 'block';
+           }
+       });
+       document.getElementById('navLogout').addEventListener('click', async (e) => {
+           e.preventDefault();
+           await LitHubAuth.logout();
+       });
+       // Star rating display
+       const rateInput = document.getElementById('rating');
+       const starsSpan = document.getElementById('stars');
+       if (rateInput && starsSpan) {
+           rateInput.addEventListener('input', () => {
+               let rating = parseInt(rateInput.value);
+               starsSpan.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+           });
+           rateInput.dispatchEvent(new Event('input'));
+       }
+       // Character counter
+       const blogTextarea = document.getElementById('blog');
+       const countSpan = document.getElementById('count');
+       if (blogTextarea && countSpan) {
+           blogTextarea.addEventListener('input', () => {
+               countSpan.textContent = blogTextarea.value.length;
+           });
+       }
+       // Image preview
+       const photoInput = document.getElementById('photo');
+       const previewImg = document.getElementById('imagePreview');
+       const previewWrapper = document.getElementById('imagePreviewWrapper');
+       if (photoInput && previewImg && previewWrapper) {
+           photoInput.addEventListener('change', function() {
+               const file = this.files[0];
+               if (file) {
+                   const reader = new FileReader();
+                   reader.onload = e => {
+                       previewImg.src = e.target.result;
+                       previewWrapper.style.display = 'block';
+                   };
+                   reader.readAsDataURL(file);
+               } else {
+                   previewWrapper.style.display = 'none';
+               }
+           });
+       }
+       // Form submission
+       document.getElementById('blogForm').addEventListener('submit', async function(e) {
+           e.preventDefault();
+          
+           const submitBtn = document.getElementById('submitBtn');
+           submitBtn.disabled = true;
+           submitBtn.textContent = 'Submitting...';
+           try {
+               const formData = new FormData(this);
+               formData.append("userId", LitHubAuth.getUserId());
 
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="blog-section">
-        <div class="blogintro">
-            <h1>Read any new books?</h1>
-            <h1>Tell us all about it!</h1>
-        </div>
-        
-        <form class="blogform" action="blog.html" method="post">
-            <label for="name">Book Title</label>
-            <input type="text" id="name" name="book" placeholder="Title of Book">
-
-            <label for="rate">Rating</label>
-            <input type="range" id="rating" min="0" max="5" value="0">
-            <p id="stars"></p>
-
-            <label for="blog">Blog Away!</label>
-            <textarea class="blog" id="blog" placeholder="Write your review here..." maxlength="10000"></textarea>
-            
-            <div class="char-count">
-                <span id="count">0</span>/10000
-            </div>
-
-            <button class="submit" type="submit" id="submit">Submit Review</button>
-            <button type="button" class="submit" onclick="window.location.href='bloghomepage.html'">Go Back</button>
-        
-        </form>
-    </div>
-    
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class=" col-12 col-sm-4">
-                    <h3 class="footer-title">Community</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Articles</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-4">
-                    <h3 class="footer-title">Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About / Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-12 col-sm-4">
-                    <h3 class="footer-title">Follow</h3>
-                    <p class="footer-links">
-                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                    </p>
-                </div>
-            </div>
-            <div class="row footer-bottom ">
-                <div class="col-12 text-center">
-                    <small style="color: white;">&copy; 2026 Lit Hub LLC. All Rights Reserved.</small>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="blog.js"></script>
+               const response = await fetch('api/blogs', {
+                   method: 'POST',
+                   body: formData
+               });
+               const data = await response.json();
+               if (data.success) {
+                   const toast = document.getElementById('statusToast');
+                   toast.textContent = '✓ Blog posted successfully!';
+                   toast.className = 'status-toast toast-success';
+                   toast.style.display = 'block';
+                   setTimeout(() => {
+                       toast.style.display = 'none';
+                       window.location.href = 'Dashboard.html';
+                   }, 1500);
+               } else {
+                   alert('Error: ' + data.message);
+                   submitBtn.disabled = false;
+                   submitBtn.textContent = 'Submit Review';
+               }
+           } catch (err) {
+               console.error('Submission error:', err);
+               alert('Server error. Please try again.');
+               submitBtn.disabled = false;
+               submitBtn.textContent = 'Submit Review';
+           }
+       });
+   </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="auth.js"></script>
+   <script src="blog.js"></script>
+	<script>
+   	 if (LitHubAuth.isLoggedIn()) {
+    	    // Fix Sign In link → Dashboard
+        	var signInLink = document.querySelector('a[href="Loginpage.html"]');
+        	if (signInLink) {
+            	signInLink.textContent = 'DASHBOARD';
+            	signInLink.href = 'Dashboard.html';
+        	}
+        	// Hide Sign Up button
+       		var signUpBtn = document.querySelector('button[onclick*="Signuppage"]');
+        	if (signUpBtn) signUpBtn.style.display = 'none';
+    	}
+	</script>
 </body>
-
 </html>
