@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quintessential&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="findabookstyle.css">
+</head>
+
+
+<body class="quintessential-regular">
+
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <i class="fa fa-book-open" style="color: #DEAF84; font-size: 3.5rem;"></i>
+            <a class="text-white title" href="#">Lit Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link active text-white" href="HomePage.html#About">ABOUT</a>
+                    <a class="nav-link active text-white" href="findabook.html">FIND A BOOK</a>
+                    <a class="nav-link active text-white" href="bloghomepage.html">BLOGS</a>
+                    <a class="nav-link active text-white" href="Loginpage.html">SIGN IN</a>
+                    <button class="btn" type="button" onclick="window.location.href='Signuppage.html'">SIGN UP</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ── HERO SECTION ── -->
+    <section class="search-section">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center">
+
+
+                <div class="col-md-6 left-col">
+                    <h1 class="fade-up">Find Your Next Great Read</h1>
+                    <p class="fade-up d1">Explore our collection!</p>
+                </div>
+
+
+                <div class="col-md-6 right-col">
+                    <div class="swiper bookSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="Img/carouselb1.jpg" alt="Book 1"></div>
+                            <div class="swiper-slide"><img src="Img/carouselb2.jpg" alt="Book 2"></div>
+                            <div class="swiper-slide"><img src="Img/carouselb3.jpg" alt="Book 3"></div>
+                            <div class="swiper-slide"><img src="Img/carouselb4.jpg" alt="Book 4"></div>
+                            <div class="swiper-slide"><img src="Img/carouselb5.jpg" alt="Book 5"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── FILTER BAR ── -->
+    <div class="filter-bar">
+        <button class="filter-toggle-btn" id="filterToggleBtn">
+            <i class="fas fa-sliders-h"></i>
+            <span>Filters</span>
+        </button>
+        <div class="filter-active-tags" id="filterActiveTags"></div>
+        <button class="filter-clear-btn" id="filterClearBtn" style="display:none;">Clear All</button>
+    </div>
+
+
+    <!-- ── FILTER OVERLAY ── -->
+    <div class="filter-overlay" id="filterOverlay"></div>
+
+
+    <!-- ── FILTER SIDEBAR ── -->
+    <aside class="filter-sidebar" id="filterSidebar">
+
+
+        <div class="filter-sidebar-header">
+            <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+            <button class="filter-close-btn" id="filterCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+
+        <div class="filter-sidebar-body">
+
+
+            <!-- Genre -->
+            <div class="filter-group">
+                <button class="filter-group-toggle" data-target="genreList">
+                    <span>Genre</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-group-list open" id="genreList">
+                    <label class="filter-checkbox"><input type="checkbox" value="Fiction"     data-filter="genre"> Fiction</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Mystery"     data-filter="genre"> Mystery</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Romance"     data-filter="genre"> Romance</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Thriller"    data-filter="genre"> Thriller</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Sci-Fi"      data-filter="genre"> Sci-Fi</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Fantasy"     data-filter="genre"> Fantasy</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Non-Fiction" data-filter="genre"> Non-Fiction</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="Self-Help"   data-filter="genre"> Self-Help</label>
+                </div>
+            </div>
+
+
+            <!-- Rating -->
+            <div class="filter-group">
+                <button class="filter-group-toggle" data-target="ratingList">
+                    <span>Rating</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-group-list" id="ratingList">
+                    <label class="filter-checkbox"><input type="checkbox" value="5" data-filter="rating"> ★★★★★ 5 stars</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="4" data-filter="rating"> ★★★★☆ 4+ stars</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="3" data-filter="rating"> ★★★☆☆ 3+ stars</label>
+                </div>
+            </div>
+
+
+            <!-- Year -->
+            <div class="filter-group">
+                <button class="filter-group-toggle" data-target="yearList">
+                    <span>Year</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-group-list" id="yearList">
+                    <label class="filter-checkbox"><input type="checkbox" value="2026"  data-filter="year"> 2026</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="2025"  data-filter="year"> 2025</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="2024"  data-filter="year"> 2024</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="2023"  data-filter="year"> 2023</label>
+                    <label class="filter-checkbox"><input type="checkbox" value="older" data-filter="year"> Before 2022</label>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="filter-sidebar-footer">
+            <button class="filter-apply-btn" id="filterApplyBtn">Apply Filters</button>
+            <button class="filter-reset-btn" id="filterResetBtn">Reset</button>
+        </div>
+
+
+    </aside>
+
+
+    <!-- ══════════════════════════════════════════════════
+         MAIN CONTENT
+         All sections are inside #mainContent so the
+         filter results can hide/show them together.
+    ══════════════════════════════════════════════════ -->
+    <div id="mainContent">
+
+
+        <!-- Trending Now -->
+        <section class="TrendingNow">
+            <div class="t1">
+                <h1>Trending Now</h1>
+                <p>What readers are loving this week</p>
+            </div>
+            <div class="tn-grid">
+                <button class="arrow-btn" id="Prev1">&#8249;</button>
+                <div class="tn-overflow">
+                    <!--
+                        tnTrack is LEFT EMPTY on purpose.
+                        JavaScript fetches books from the backend (FindBookServlet)
+                        and dynamically creates and inserts book cards here.
+                    -->
+                    <div class="tn-track" id="tnTrack"></div>
+                </div>
+                <button class="arrow-btn" id="Next1">&#8250;</button>
+            </div>
+        </section>
+
+
+        <!-- Most Viewed -->
+        <section class="Most-Viewed">
+            <div class="t1">
+                <h1>Most Viewed</h1>
+            </div>
+            <div class="mv-grid">
+                <button class="arrow-btn" id="Prev">&#8249;</button>
+                <div class="mv-overflow">
+                    <!--
+                        mvTrack is LEFT EMPTY on purpose.
+                        JavaScript fetches books from the backend (FindBookServlet)
+                        and dynamically creates and inserts book cards here.
+                    -->
+                    <div class="mv-track" id="mvTrack"></div>
+                </div>
+                <button class="arrow-btn" id="Next">&#8250;</button>
+            </div>
+        </section>
+
+
+        <!-- Discover Book Clubs -->
+        <section class="Most-Viewed">
+            <div class="t1">
+                <h1>Discover Book Clubs</h1>
+                <p>Find your people and join the conversation!</p>
+            </div>
+            <div class="mv-grid" id="db-grid">
+                <button class="arrow-btn" id="PrevDiscover">&#8249;</button>
+                <div class="mv-overflow" id="db-overflow">
+                    <!--
+                        mvTrackDiscover is LEFT EMPTY on purpose.
+                        JavaScript fetches clubs from the backend (FindClubServlet)
+                        and dynamically creates and inserts club cards here.
+                    -->
+                    <div class="mv-track" id="mvTrackDiscover"></div>
+                </div>
+                <button class="arrow-btn" id="NextDiscover">&#8250;</button>
+            </div>
+        </section>
+
+
+        <!-- Mood Selection -->
+        <section class="mood-section">
+            <div class="mood-header">
+                <h1>What Are You in the Mood For?</h1>
+                <p>Pick a vibe and find your next read</p>
+            </div>
+            <div class="mood-grid">
+                <div class="mood-card" onclick="window.location.href='mood.html?mood=feel-good'">
+                    <span class="mood-emoji">😊</span>
+                    <p>Feel-good</p>
+                </div>
+                <div class="mood-card" onclick="window.location.href='mood.html?mood=cant-put-down'">
+                    <span class="mood-emoji">😤</span>
+                    <p>Can't put it down</p>
+                </div>
+                <div class="mood-card" onclick="window.location.href='mood.html?mood=laugh-out-loud'">
+                    <span class="mood-emoji">😂</span>
+                    <p>Laugh out loud</p>
+                </div>
+                <div class="mood-card" onclick="window.location.href='mood.html?mood=dark-twisted'">
+                    <span class="mood-emoji">🖤</span>
+                    <p>Dark And Twisted</p>
+                </div>
+                <div class="mood-card" onclick="window.location.href='mood.html?mood=make-me-cry'">
+                    <span class="mood-emoji">😢</span>
+                    <p>Make me cry</p>
+                </div>
+            </div>
+        </section>
+
+
+    </div><!-- end #mainContent -->
+
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-4">
+                    <h3 class="footer-title">Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Articles</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <h3 class="footer-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About / Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <h3 class="footer-title">Follow</h3>
+                    <p class="footer-links">
+                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>&ensp;
+                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>&ensp;
+                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row footer-bottom">
+                <div class="col-12 text-center">
+                    <small style="color: white;">&copy; 2026 Lit Hub LLC. All Rights Reserved.</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="findabook.js"></script>
+    <script src="auth.js"></script>
+	<script>
+   	 if (LitHubAuth.isLoggedIn()) {
+    	    // Fix Sign In link → Dashboard
+        	var signInLink = document.querySelector('a[href="Loginpage.html"]');
+        	if (signInLink) {
+            	signInLink.textContent = 'DASHBOARD';
+            	signInLink.href = 'Dashboard.html';
+        	}
+        	// Hide Sign Up button
+       		var signUpBtn = document.querySelector('button[onclick*="Signuppage"]');
+        	if (signUpBtn) signUpBtn.style.display = 'none';
+    	}
+	</script>
+
+
+</body>
+</html>

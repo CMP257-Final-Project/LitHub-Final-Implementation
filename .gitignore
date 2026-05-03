@@ -1,0 +1,19 @@
+# Compiled Java classes
+*.class
+
+# Eclipse IDE files
+.classpath
+.project
+.settings/
+.metadata/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tomcat logs
+logs/
+*.log
+
+# Tomcat work directory
+work/
