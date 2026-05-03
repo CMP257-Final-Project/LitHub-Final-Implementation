@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseUtil {
     private static final String URL = "jdbc:mysql://localhost:3306/lithub_db?useSSL=false&serverTimezone=UTC";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "syedaSQL2505";  // ADD YOUR PASSWORD HERE BUT REMEMBER TO REMOVE IT BEFORE PUSHING 
+    private static final String PASSWORD = "";  // ADD YOUR PASSWORD HERE BUT REMEMBER TO REMOVE IT BEFORE PUSHING 
     
     static {
         try {
