@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
  * Redirects to login if the server returns 401.
  */
 function loadDashboard() {
-	fetch(API_BASE + "/dashboard?userId=" + LitHubAuth.getUserId(), {
-	        method: 'GET',
+    fetch(API_BASE + "/dashboard?userId=" + LitHubAuth.getUserId(), {
+            method: 'GET',
         credentials: 'same-origin'   // send the session cookie
     })
     .then(function(resp) {
@@ -61,7 +61,9 @@ function loadDashboard() {
         updateStats();
         displayWishlist();
         displayReadBooks();
-		loadClubs();
+        loadClubs();
+        loadUserBlogs();
+        displayUserBlogs();
     })
     .catch(function(err) {
         console.error('Failed to load dashboard:', err);
@@ -178,6 +180,8 @@ function displayReadBooks() {
  * Throws on network error or non-OK HTTP status.
  */
 function sendAction(payload, callback) {
+    payload.userId = parseInt(LitHubAuth.getUserId());
+    
     fetch(API_BASE + "/book-action", {
         method: 'POST',
         credentials: 'same-origin',
@@ -222,9 +226,9 @@ function markAsRead(userBookId, title) {
                 }
             }
             book.status   = 'read';
-			book.readDate = new Date().toISOString().split('T')[0];
-			            book.rating = 0;
-			            delete book.addedAt;
+            book.readDate = new Date().toISOString().split('T')[0];
+                        book.rating = 0;
+                        delete book.addedAt;
             
             // Insert at beginning
             readBooks.splice(0, 0, book);
@@ -420,8 +424,25 @@ function showToast(message) {
 function logout(e) {
     e.preventDefault();
     if (confirm('Are you sure you want to log out?')) {
-        showToast('Logged out successfully! Redirecting to Home page...');
-        setTimeout(function() { window.location.href = 'HomePage.html'; }, 1000);
+
+        // Clear client-side storage
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Clear in-memory state
+        wishlistBooks = [];
+        readBooks = [];
+        userBlogs = [];
+        joinedClubs = [];
+        currentUser = { username: "" };
+
+        // Let auth.js handle server-side session invalidation
+        LitHubAuth.logout();
+
+        showToast('Logged out successfully! Redirecting...');
+        setTimeout(function() {
+            window.location.href = 'HomePage.html';
+        }, 1000);
     }
 }
 
@@ -436,9 +457,101 @@ function escapeHtml(str) {
 
 
 
+////////////////////////////////////////////////////////////////////////////////////
+// ── BLOGS ──────────────────────────────────────────────────────────────────
+var userBlogs = [];   // declare at top level so displayUserBlogs can see it
+
+function loadUserBlogs() {
+    var userId = LitHubAuth.getUserId();
+    if (!userId) return;
+
+    fetch(API_BASE + "/blogs?userId=" + userId, {
+        method: 'GET',
+        credentials: 'same-origin'
+    })
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(data) {
+        userBlogs = (data && data.success) ? data.blogs : [];
+        displayUserBlogs();
+    })
+    .catch(function(err) {
+        console.error("blog load error", err);
+        userBlogs = [];
+        displayUserBlogs();
+    });
+}
+
+function displayUserBlogs() {
+    var container = document.getElementById("blogsGrid");
+    if (!container) return;
+
+    if (userBlogs.length === 0) {
+        container.innerHTML =
+            '<div class="empty-grid"><i class="fas fa-pen-nib"></i><h3>No blogs yet</h3><p>Share your thoughts on a book!</p></div>';
+        return;
+    }
+
+    var html = "";
+    for (var i = 0; i < userBlogs.length; i++) {
+        var b = userBlogs[i];
+
+        // Build star rating string
+        var stars = "";
+        for (var s = 1; s <= 5; s++) {
+            if (s <= b.rating) {
+                stars += '<i class="fas fa-star"></i>';
+            } else {
+                stars += '<i class="far fa-star"></i>';
+            }
+        }
+
+        // Cover image block (optional)
+        var coverHtml = "";
+        if (b.bookCoverImage) {
+            coverHtml = '<div class="blog-cover"><img src="' + b.bookCoverImage + '" class="blog-cover-img" onerror="this.parentElement.style.display=\'none\'"></div>';
+        }
+
+        // Date formatting
+        var dateStr = b.createdAt ? b.createdAt.substring(0, 10) : "";
+
+        // Content preview (first 120 chars)
+        var preview = b.content ? b.content.substring(0, 120) + "..." : "";
+
+        html += '<div class="blog-card">' +
+                    coverHtml +
+                    '<div class="blog-info">' +
+                        '<p class="blog-book-title"><i class="fas fa-book"></i>' + escapeHtml(b.bookTitle) + '</p>' +
+                        '<p class="blog-book-author">by ' + escapeHtml(b.bookAuthor) + '</p>' +
+                        '<div class="blog-rating">' + stars + '</div>' +
+                        '<p class="blog-content-preview">' + escapeHtml(preview) + '</p>' +
+                        '<div class="blog-meta">' +
+                            '<span><i class="fas fa-calendar"></i>' + dateStr + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+    }
+
+    container.innerHTML = html;
+}
+
+// BLOG ACTIONS (NO TOKEN — MATCH SERVLET)
+// ───────────────────────────────────────────────────────
+function sendBlogAction(formData, callback) {
 
 
+    fetch(API_BASE + "/blogs", {
+        method: "POST",
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => callback(null, data))
+    .catch(err => callback(err));
+}
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -1,18 +1,20 @@
 package lithub.servlets;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lithub.lithubrepository.ClubRepository;
 import lithub.models.ClubDetails;
+import com.fasterxml.jackson.databind.ObjectMapper; 
 
-import java.util.List;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/LitHubBackend/FindClubServlet")
@@ -31,25 +33,21 @@ public class FindClubServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // 1. Set response content type and character encoding
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        
+        ClubRepository repo = new ClubRepository();
 
-        // 2. Retrieve the data from your repository
-        List<ClubDetails> clubs = clubRepository.getAllClubs();
-
-        // 3. Convert the Java list to JSON using Jackson
-        ObjectMapper mapper = new ObjectMapper();
-
-        // 4. Send the JSON string directly to the HTTP response writer
-        PrintWriter out = response.getWriter();
-        try {
-            mapper.writeValue(out, clubs);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } finally {
-            out.flush();
+        String sectionParam = request.getParameter("section");
+        List<ClubDetails> clubs;
+        if (sectionParam != null && !sectionParam.isEmpty()) {
+            clubs = repo.getClubsBySection(sectionParam);
+        } else {
+            clubs = repo.getAllClubs();
         }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(clubs);
+        response.getWriter().write(json);
     }
-}
+    }

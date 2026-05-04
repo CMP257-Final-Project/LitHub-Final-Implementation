@@ -1,216 +1,171 @@
-//okay so, first we get the using URL parameters, they help pass information about a click through its URL
-const url = new URLSearchParams(window.location.search);
-//window.location.search - this returns the entire string
-const mood = url.get("mood");
+var moodMap = {
+    'feel-good': 'feel_good',
+    'cant-put-down': 'cant_put_down',
+    'laugh-out-loud': 'laugh_out_loud',
+    'dark-twisted': 'dark_twisted',
+    'make-me-cry': 'make_me_cry'
+};
 
+var urlParams = new URLSearchParams(window.location.search);
+var moodKey = urlParams.get('mood');
+var dbSection = moodMap[moodKey] || 'feel_good';
 
-const moods = {
+var moodConfig = {
+    'feel-good': {
+        emoji: '😊',
+        tagline: 'Sunshine in every page',
+        subtext: 'Books that wrap you in a warm hug',
+        booksTitle: 'Feel-Good Reads',
+        booksSub: 'Handpicked to lift your spirits',
+        clubsTitle: 'Clubs for Happy Readers',
+        clubsSub: 'Find your reading community'
+    },
+    'cant-put-down': {
+        emoji: '🔥',
+        tagline: 'Just one more chapter...',
+        subtext: 'Stories you won\'t be able to stop reading',
+        booksTitle: 'Can\'t Put Down Reads',
+        booksSub: 'Warning: sleep not included',
+        clubsTitle: 'Clubs for Addicted Readers',
+        clubsSub: 'Find your people'
+    },
+    'laugh-out-loud': {
+        emoji: '😂',
+        tagline: 'Books that feel like a comedy show',
+        subtext: 'Light, funny reads to brighten your day',
+        booksTitle: 'Laugh-Out-Loud Reads',
+        booksSub: 'Because life\'s too short to be serious',
+        clubsTitle: 'Comedy Book Clubs',
+        clubsSub: 'Share laughs, memes & favorite moments'
+    },
+    'dark-twisted': {
+        emoji: '🖤',
+        tagline: 'Enter the shadows',
+        subtext: 'Twisted tales and dark minds',
+        booksTitle: 'Dark & Twisted Picks',
+        booksSub: 'Not for the faint-hearted',
+        clubsTitle: 'Clubs for the Brave',
+        clubsSub: 'Find your people'
+    },
+    'make-me-cry': {
+        emoji: '😢',
+        tagline: 'Bring the tissues',
+        subtext: 'Emotional stories that stay with you forever',
+        booksTitle: 'Heartbreaking Reads',
+        booksSub: 'Stories that hit you right in the feels',
+        clubsTitle: 'Emotional Readers Clubs',
+        clubsSub: 'Find your reading community'
+    }
+};
 
-  "feel-good": {
-    theme: "theme-feel-good",
-    emoji: "😊",
-    tagline: "Sunshine in every page",
-    subtext: "Books that wrap you in a warm hug",
-    booksSectionTitle: "Feel-Good Reads",
-    booksSectionSub: "Handpicked to lift your spirits",
-    BookClubsTitle: "Clubs for Happy Readers",
-    BookClubsSub: "Find your people",
+var config = moodConfig[moodKey] || moodConfig['feel-good'];
 
+document.body.classList.add('theme-' + moodKey);
 
-    books: [
-      "Img/fgb1.jpg",
-      "Img/fgb2.jpg",
-      "Img/fgb3.jpg",
-      "Img/fgb4.jpg",
-      "Img/fgb5.jpg",
-      "Img/tn7.jpg",
+document.getElementById('moodEmoji').innerText = config.emoji;
+document.getElementById('moodTagline').innerText = config.tagline;
+document.getElementById('moodSub').innerText = config.subtext;
+document.getElementById('booksSectionTitle').innerText = config.booksTitle;
+document.getElementById('booksSectionSub').innerText = config.booksSub;
+document.getElementById('BookClubsTitle').innerText = config.clubsTitle;
+document.getElementById('BookClubsSub').innerText = config.clubsSub;
 
-    ],
+function loadBooks() {
+    return fetch('LitHubBackend/FindBookServlet?section=' + dbSection)  // ✅ leading slash
+        .then(function(response) {
+            if (!response.ok) throw new Error('Failed to fetch books');
+            return response.json();
+        })
+        .then(function(books) {
+            console.log('Mood books:', books);
+            populateBooks(books);
+            return books;
+        });
+}
 
-    clubs: [
-      "Img/fgc1.jpg",
-      "Img/fgc2.png",
-      "Img/fgc3.png",
-      "Img/fgb4.png",
+function populateBooks(books) {
+    var track = document.getElementById('mvTrack');
+    if (!track) return;
+    track.innerHTML = '';
+    books.forEach(function(book) {
+        track.appendChild(createBookCard(book));
+    });
+    setupBookSlider();   
+}
 
-    ]
-  },
+function loadClubs() {
+    return fetch('LitHubBackend/FindClubServlet?section=' + dbSection)  
+        .then(function(response) {
+            if (!response.ok) throw new Error('Failed to fetch clubs');
+            return response.json();
+        })
+        .then(function(clubs) {
+            console.log('Mood clubs:', clubs);
+            populateClubs(clubs);
+            return clubs;
+        });
+}
 
-  "cant-put-down": {
-    theme: "theme-cant-put-down",
-    emoji: "🔥",
-    tagline: "Just one more chapter...",
-    subtext: "Stories you won't be able to stop reading",
-    booksSectionTitle: "Can't Put Down Reads",   
-    booksSectionSub: "Warning: sleep not included", 
-    BookClubsTitle: "Clubs for Addicted Readers", 
-    BookClubsSub: "Find your people",               
+function populateClubs(clubs) {
+    var track = document.getElementById('clubTrack');  
+    if (!track) return;
+    track.innerHTML = '';
+    clubs.forEach(function(club) {
+        track.appendChild(createClubCard(club));
+    });
+}
 
-    books: [
-      "Img/cd1.jpg",
-      "Img/cd2.jpg",
-      "Img/cd3.jpg",
-      "Img/cd4.jpg",
-      "Img/cd5.jpg",
-      "Img/tn6.jpg",
+function createBookCard(book) {
+    var card = document.createElement('div');
+    card.className = 'book-card';
+    var cover = book.cover_url || 'Img/tn1.jpg';
+    var html = '';
+    html += '<img src="' + cover + '" alt="' + book.title + '">';
+    html += '<div class="tn-button">';
+    html += '<button class="btn-readmore" onclick="window.location.href=\'BookReadMore.html?book=' + book.id + '\'">Read More</button>';
+    html += '<button class="btn-save" data-book-id="' + book.id + '"><i class="far fa-bookmark"></i> Save</button>';
+    html += '</div>';
+    card.innerHTML = html;
+    return card;
+}
 
+function createClubCard(club) {
+    var card = document.createElement('div');
+    card.className = 'dbook-card';
+    var image = club.cover_url || 'Img/db1.png';
+    var html = '';
+    html += '<img src="' + image + '" alt="' + club.name + '">';
+    html += '<div class="tn-button">';
+    html += '<button class="btn-readmore" onclick="window.location.href=\'clubreadmore.html?club=' + club.id + '\'">Read More</button>';
+    html += '</div>';
+    card.innerHTML = html;
+    return card;
+}
 
-    ],
-
-    clubs: [
-      "Img/cdb1.png",
-      "Img/cdb4.jpg",
-      "Img/cdb3.png",
-
-    ]
-  },
-
-  "dark-twisted": {
-    theme: "theme-dark-twisted",
-    emoji: "🖤",
-    tagline: "Enter the shadows",
-    subtext: "Twisted tales and dark minds",
-    booksSectionTitle: "Dark & Twisted Picks",
-    booksSectionSub: "Not for the faint-hearted",
-    BookClubsTitle: "Clubs for the Brave",
-    BookClubsSub: "Find your people",
-    books: [
-      "Img/cd1.jpg",
-      "Img/cd2.jpg",
-      "Img/cd3.jpg",
-      "Img/cd4.jpg",
-      "Img/cd5.jpg",
-      "Img/tn6.jpg",
-
-    ],
-
-    clubs: [
-      "Img/cdb1.png",
-      "Img/cdb2.png",
-      "Img/cdb3.png",
-
-
-    ]
-  },
-
-  // "mind-bending": {
-  //   theme: "theme-mind-bending",
-  //   emoji: "🤯",
-  //   tagline: "Reality is overrated",
-  //   subtext: "Stories that twist your brain and flip everything",
-
-  //   booksSectionTitle: "Mind-Bending Reads",
-  //   booksSectionSub: "Plot twists you won't see coming",
-  //   BookClubsTitle: "Deep Thinkers Club",
-  //   BookClubsSub: "Discuss theories, endings & hidden meanings",
-
-
-  //   books: [
-  //     "Img/fgb1.jpg",
-  //     "Img/fgb2.jpg",
-  //     "Img/fgb3.jpg",
-  //     "Img/fgb4.jpg",
-  //     "Img/fgb5.jpg",
-  //     "Img/tn7.jpg",
-
-  //   ],
-
-  //   clubs: [
-  //     "Img/fgc1.jpg",
-  //     "Img/fgc2.png",
-  //     "Img/fgc3.png",
-  //     "Img/fgb4.png",
-
-  //   ]
-  // },
-
-  "laugh-out-loud": {
-    theme: "theme-laugh-out-loud",
-    emoji: "😂",
-    tagline: "Books that feel like a comedy show",
-    subtext: "Light, funny reads to brighten your day",
-
-    booksSectionTitle: "Laugh-Out-Loud Reads",
-    booksSectionSub: "Because life’s too short to be serious",
-    BookClubsTitle: "Comedy Book Clubs",
-    BookClubsSub: "Share laughs, memes & favorite moments",
-
-    books: [
-      "Img/fgb1.jpg",
-      "Img/fgb2.jpg",
-      "Img/fgb3.jpg",
-      "Img/fgb4.jpg",
-      "Img/fgb5.jpg",
-      "Img/tn7.jpg",
-
-    ],
-
-    clubs: [
-      "Img/lol1.png",
-      "Img/fgc2.png",
-      "Img/lol3.png",
-      "Img/fgb4.png",
-
-    ]
-  },
-
-  "make-me-cry": {
-    theme: "theme-make-me-cry",
-    emoji: "😢",
-    tagline: "Bring the tissues",
-    subtext: "Emotional stories that stay with you forever",
-
-    booksSectionTitle: "Heartbreaking Reads",
-    booksSectionSub: "Stories that hit you right in the feels",
-    BookClubsTitle: "Emotional Readers Clubs",
-    BookClubsSub: "Find your reading community",
-    books: [
-      "Img/fgb1.jpg",
-      "Img/fgb2.jpg",
-      "Img/fgb3.jpg",
-      "Img/fgb4.jpg",
-      "Img/fgb5.jpg",
-      "Img/tn7.jpg",
-
-    ],
-
-    clubs: [
-      "Img/mcb1.jpg",
-      "Img/mcb2.png",
-      "Img/mcb3.png",
-      "Img/fgb4.png",
-
-    ],
-  }
-
-
-
-
+function setupBookSlider() {
+    var track = document.getElementById('mvTrack');
+    var prev = document.getElementById('Prev');
+    var next = document.getElementById('Next');
+    var container = document.querySelector('.mv-overflow');
+    if (!track || !prev || !next || !container || track.children.length === 0) return;
+    var index = 0;
+    function update() {
+        var cardWidth = track.children[0].offsetWidth + 12;
+        var visible = Math.max(1, Math.floor(container.offsetWidth / cardWidth));
+        var maxIndex = Math.max(0, track.children.length - visible);
+        if (index > maxIndex) index = maxIndex;
+        track.style.transform = 'translateX(-' + (index * cardWidth) + 'px)';
+    }
+    next.onclick = function(e) { e.preventDefault(); index++; update(); };
+    prev.onclick = function(e) { e.preventDefault(); index--; if (index < 0) index = 0; update(); };
+    window.addEventListener('resize', update);
+    update();
 }
 
 
-const current = moods[mood];
-document.body.classList.add(current.theme); // so the <body class=" "> changes acc to the current mood
-document.getElementById("moodTagline").innerText = current.tagline;
-document.getElementById("moodSub").innerText = current.subtext;
-document.getElementById("moodEmoji").innerText = current.emoji;
-document.getElementById("moodEmoji").innerText = current.emoji;
-document.getElementById("booksSectionTitle").innerText = current.booksSectionTitle;
-document.getElementById("booksSectionSub").innerText = current.booksSectionSub;
-document.getElementById("BookClubsTitle").innerText = current.BookClubsTitle;
-
-
-
-
-
-for (let i = 0; i < current.books.length; i++) {
-  document.getElementById(`book${i + 1}`).src = current.books[i];
-
-
-}
-
-for (let i = 0; i < current.clubs.length; i++) {
-    document.getElementById(`c${i + 1}`).src = current.clubs[i];
-
-
-}
+document.addEventListener('DOMContentLoaded', function() {
+    Promise.all([loadBooks(), loadClubs()])
+        .catch(function(err) {
+            console.error('Error loading mood page:', err);
+        });
+});

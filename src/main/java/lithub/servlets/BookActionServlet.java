@@ -43,11 +43,19 @@ public class BookActionServlet extends HttpServlet {
 		//        }
 		//
 		//        int userId = (int) session.getAttribute("userId");
-		int userId = 1; // hardcoded for testing
-
-		// ── Parse request body ───────────────────────────────────────────────
+		//int userId = 1; // hardcoded for testing
+		
+		// Parse body FIRST, then read userId from it
 		@SuppressWarnings("unchecked")
 		Map<String, Object> body = mapper.readValue(req.getReader(), Map.class);
+
+		Object userIdObj = body.get("userId");
+		if (userIdObj == null) {
+		    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		    resp.getWriter().write("{\"success\":false,\"error\":\"Not logged in\"}");
+		    return;
+		}
+		int userId = ((Number) userIdObj).intValue();
 
 		String action     = (String) body.get("action");
 		int    userBookId = (Integer) body.get("userBookId");

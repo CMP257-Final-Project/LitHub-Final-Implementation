@@ -119,10 +119,10 @@ function createBookCard(book) {
     var html = '';
     html += '<img src="' + cover + '" alt="' + book.title + '">';
     html += '<div class="tn-button">';
-    html += '<button class="btn-readmore" onclick="window.location.href=\'BookReadMore.html?book=' + book.id + '\'">';
+    html += '<button class="btn-readmore" onclick="window.location.href=\'BookReadMore.html?book=' + book.id + '\'">'; 
     html += 'Read More';
     html += '</button>';
-    html += '<button class="btn-save">';
+    html += '<button class="btn-save" data-book-id="' + book.id + '">';
     html += '<i class="far fa-bookmark"></i> Save';
     html += '</button>';
     html += '</div>';
@@ -143,9 +143,9 @@ function createClubCard(club) {
     html += '<button class="btn-readmore" onclick="window.location.href=\'clubreadmore.html?club=' + club.id + '\'">';
     html += 'Read More';
     html += '</button>';
-    html += '<button class="btn-save">';
-    html += '<i class="far fa-bookmark"></i> Save';
-    html += '</button>';
+    //html += '<button class="btn-save">';
+    //html += '<i class="far fa-bookmark"></i> Save';
+    //html += '</button>';
     html += '</div>';
 
     card.innerHTML = html;
@@ -312,20 +312,55 @@ function setupSlider(trackId, prevId, nextId, containerSelector) {
 // TOAST + SAVE BUTTON
 // -----------------------------
 document.addEventListener('click', function(event) {
+	
     var btn = event.target.closest('.btn-save');
     if (!btn) return;
 
-    var icon = btn.querySelector('i');
+	var bookId = btn.getAttribute('data-book-id');
+	if (!bookId) return;   
+		
+	if (btn.classList.contains('saved')) {
+	        showToast("Already in wishlist!");
+	        return;
+	    }
 
-    if (btn.classList.contains('saved')) {
-        btn.classList.remove('saved');
-        icon.classList.replace('fas', 'far');
-        showToast("Removed from wishlist!");
-    } else {
-        btn.classList.add('saved');
-        icon.classList.replace('far', 'fas');
-        showToast("Saved to wishlist!");
-    }
+	    // Get userId from LitHubAuth or localStorage
+	    var userId = (typeof LitHubAuth !== 'undefined' && LitHubAuth.getUserId) 
+	                 ? LitHubAuth.getUserId() 
+	                 : localStorage.getItem("userId");
+	    if (!userId) {
+	        window.location.href = "Loginpage.html";
+	        return;
+	    }
+
+	    var icon = btn.querySelector('i');
+
+	    fetch('LitHubBackend/SaveBookServlet?bookId=' + bookId + '&userId=' + userId, { method: 'POST' })
+	        .then(function(response) {
+	            if (response.status === 401) {
+	                window.location.href = "Loginpage.html";
+	                throw new Error("Please login");
+	            }
+	            if (!response.ok) {
+	                throw new Error("Save failed");
+	            }
+	            return response.json();
+	        })
+	        .then(function(data) {
+	            if (data.success) {
+	                btn.classList.add('saved');
+	                if (icon) icon.classList.replace('far', 'fas');
+	                showToast("Saved to wishlist!");
+	            } else {
+	                showToast(data.message || "Error saving");
+	            }
+	        })
+	        .catch(function(error) {
+	            console.error("Save error:", error);
+	            if (error.message !== "Please login") {
+	                showToast("Could not save. Try again.");
+	            }
+	        });
 });
 
 function showToast(message) {
@@ -337,4 +372,3 @@ function showToast(message) {
         toast.remove();
     }, 3000);
 }
-

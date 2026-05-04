@@ -1,11 +1,10 @@
-
-
 body {
     background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6)), url("Img/BackgroundPic.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: "Instrument Serif", serif;
 }
 
 .instrument-serif-regular {
@@ -16,11 +15,11 @@ body {
 
 /* Navigation bar */
 nav {
-    background-color: #41311dd2;
+    background-color: #3c0e18d2;
     font-size: 1.25rem;
     font-weight: bold;
-    border-bottom: #2F1B12 solid 3px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.76);
+    border-bottom: #C8A27C solid 3px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .navbar {
@@ -29,10 +28,16 @@ nav {
     z-index: 2;
 }
 
-.nav-link:hover {
-    text-decoration: underline solid white 2px;
-    transform: scale(1.01);
+.navbar .nav-link {
+    font-family: "Instrument Serif", serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    color: #F7CAD0 !important;
+}
 
+.nav-link:hover {
+    text-decoration: underline solid #B56576 2px;
+    transform: scale(1.01);
 }
 
 .navbar-nav {
@@ -43,36 +48,33 @@ nav {
     font-size: 2.5rem;
     text-decoration: none;
     margin-left: 1%;
+    font-family: "Instrument Serif", serif;
+    color: #F7CAD0 !important;
 }
 
 .btn {
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
     border-radius: 60px;
-    text-shadow: 1px 1px 30px #000000;
-    color: #ffffff;
+    color: #3A2119;
+    font-family: "Instrument Serif", serif;
     font-weight: bold;
     font-size: 20px;
-    background: 785b37d2;
+    background: #EBCDB7;
     padding: 10px 20px 10px 20px;
-    border: solid #000000 2px;
+    border: solid #EBCDB7 2px;
     text-decoration: none;
 }
 
 .btn:hover {
-    color: white;
-    background: #3E2C23;
-    background-image: -webkit-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -moz-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -ms-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -o-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: linear-gradient(to bottom, #3E2C23, #4e3b23d2);
+    color: #EBCDB7;
+    background: #6B8F71;
+    border-color: #6B8F71;
     text-decoration: none;
 }
 
 .fa {
     font-size: 4rem;
     margin-left: 1%;
+    color: #A3C9A8;
 }
 
 .club-back-btn {
@@ -82,7 +84,7 @@ nav {
     margin: 1.2rem 2rem;
     color:#5a3e2b;
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: "Instrument Serif", serif;
     font-size: 1.5rem;
     opacity: 0.8;
     transition: opacity 0.2s ;
@@ -109,8 +111,8 @@ nav {
     object-fit: cover;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-
 }
+
 .club-info {
     flex: 2;
     display: flex;
@@ -135,20 +137,22 @@ nav {
 }
 
 .club-sub{
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Instrument Serif', serif;
     font-size: 3rem;
     color: #5a3e2b;
     font-weight: 600;
     margin: 0;
     opacity: 0.85;
 }
+
 .club-divider {
     border: none;
-    border-top: 4px solid rgba(0, 0, 0, 0.15);
+    border-top: 4px solid rgba(200, 162, 124, 0.3);
     margin: 0.5rem 0;
 }
+
 .club-summary {
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Instrument Serif', serif;
     font-size: 1.6rem;
     color:#2c1f14 ;
     line-height: 1.7;
@@ -162,7 +166,6 @@ nav {
     margin: 0;
 }
  
-
 .club-stats {
     display: flex;
     flex-direction: column;
@@ -174,16 +177,17 @@ nav {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Instrument Serif', serif;
     font-size: 1.7rem;
     color: #3b2917;
     font-weight: bold;
 }
+
 /* join btn */
 .club-join-btn{
-     margin-top: 1rem;
-    background: #5a3e2b;
-    color: #f5efe6;
+    margin-top: 1rem;
+    background: #3c0e18d2;
+    color: #F7CAD0;
     border: none;
     border-radius: 30px;
     padding: 0.9rem 2.5rem;
@@ -193,30 +197,30 @@ nav {
     width: fit-content;          
     transition: background 0.2s, transform 0.15s;
 }
+
 .club-join-btn:hover {
     background: #2c1f14;
-    /* transform: translateY(-2px); */
 }
+
 .club-join-btn.joined {
-    background: #2d6b4a;          /* green when joined */
+    background: #6B8F71;
     cursor: default;
 }
  
 /* Dark overlay behind the modal */
 .modal-overlay {
-    position: fixed;              /* stays in place even when scrolling */
-    inset: 0;                     /* covers the whole screen (top/right/bottom/left = 0) */
+    position: fixed;
+    inset: 0;
     background: rgba(20, 12, 6, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
-    opacity: 0;                   /* invisible by default */
-    pointer-events: none;         /* can't click through it when hidden */
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
  
-/* When JS adds .active class, it becomes visible */
 .modal-overlay.active {
     opacity: 1;
     pointer-events: all;
@@ -231,13 +235,13 @@ nav {
     max-width: 400px;
     width: 90%;
     box-shadow: 0 30px 80px rgba(0,0,0,0.2);
-    /* slides up when it appears */
+    border: 2px solid #EBCDB7;
     transform: translateY(30px);
     transition: transform 0.3s ease;
 }
  
 .modal-overlay.active .modal-box {
-    transform: translateY(0);     /* slides into place */
+    transform: translateY(0);
 }
  
 .modal-emoji {
@@ -253,7 +257,7 @@ nav {
 }
  
 .modal-message {
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Instrument Serif', serif;
     font-size: 1.4rem;
     color: rgba(44, 31, 20, 0.75);
     margin-bottom: 0.5rem;
@@ -268,8 +272,8 @@ nav {
 }
  
 .close-btn {
-    background: #5a3e2b;
-    color: #f5efe6;
+    background: #3c0e18d2;
+    color: #F7CAD0;
     border: none;
     border-radius: 25px;
     padding: 0.75rem 2rem;
@@ -279,7 +283,7 @@ nav {
     transition: background 0.2s;
 }
  
-.modal-close-btn:hover {
+.close-btn:hover {
     background: #2c1f14;
 }
 
@@ -325,9 +329,10 @@ nav {
     }
 
     .book-meta {
-        flex-direction: column; /* stack meta items */
+        flex-direction: column;
         gap: 1rem;
     }
+
     .review-card {
         padding: 1rem;
         border-radius: 15px;
@@ -337,5 +342,3 @@ nav {
         font-size: 1rem;
     }
 }
-
- 

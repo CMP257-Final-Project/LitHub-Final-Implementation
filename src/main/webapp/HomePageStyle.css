@@ -4,6 +4,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: "Instrument Serif", serif;
 }
 
 .instrument-serif-regular {
@@ -14,11 +15,11 @@ body {
 
 /* Navigation bar */
 nav {
-    background-color: #41311dd2;
+    background-color: #3c0e18d2;
     font-size: 1.25rem;
     font-weight: bold;
-    border-bottom: #2F1B12 solid 3px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.76);
+    border-bottom: #C8A27C solid 3px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .navbar {
@@ -27,10 +28,16 @@ nav {
     z-index: 2;
 }
 
-.nav-link:hover {
-    text-decoration: underline solid white 2px;
-    transform: scale(1.01);
+.navbar .nav-link {
+    font-family: "Instrument Serif", serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    color: #F7CAD0 !important;
+}
 
+.nav-link:hover {
+    text-decoration: underline solid #B56576 2px;
+    transform: scale(1.01);
 }
 
 .navbar-nav {
@@ -41,36 +48,33 @@ nav {
     font-size: 2.5rem;
     text-decoration: none;
     margin-left: 1%;
+    font-family: "Instrument Serif", serif;
+    color: #F7CAD0 !important;
 }
 
 .btn {
-    -webkit-border-radius: 60;
-    -moz-border-radius: 60;
     border-radius: 60px;
-    text-shadow: 1px 1px 30px #000000;
-    color: #ffffff;
+    color: #3A2119;
+    font-family: "Instrument Serif", serif;
     font-weight: bold;
     font-size: 20px;
-    background: 785b37d2;
+    background: #EBCDB7;
     padding: 10px 20px 10px 20px;
-    border: solid #000000 2px;
+    border: solid #EBCDB7 2px;
     text-decoration: none;
 }
 
 .btn:hover {
-    color: white;
-    background: #3E2C23;
-    background-image: -webkit-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -moz-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -ms-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: -o-linear-gradient(top, #3E2C23, #4e3b23d2);
-    background-image: linear-gradient(to bottom, #3E2C23, #4e3b23d2);
+    color: #EBCDB7;
+    background: #6B8F71;
+    border-color: #6B8F71;
     text-decoration: none;
 }
 
 .fa {
     font-size: 4rem;
     margin-left: 1%;
+    color: #A3C9A8;
 }
 
 /* Carousel */
@@ -80,6 +84,9 @@ nav {
 
 .carousel-caption h2 {
     font-size: 4rem;
+    font-family: "Instrument Serif", serif;
+    color: #FFF5FB;
+    text-shadow: 1px 2px 12px rgba(58, 33, 25, 0.85);
 }
 
 .carousel-item img {
@@ -101,21 +108,18 @@ nav {
     display: block;
     height: 10rem;
     width: auto;
-    box-shadow: 0 15px 15px -12px #43392F;
+    box-shadow: 0 15px 15px -12px #C8A27C;
 }
 
 .p-3 img:hover {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #F7CAD0;
     transform: translateY(-2px);
-
 }
 
 @media(max-width: 555px) {
     .p-3 img {
-
         height: 6.3rem;
         width: auto;
-
     }
 }
 
@@ -127,9 +131,10 @@ nav {
 
 .testimonials h2 {
     font-size: 2rem;
+    font-family: "Instrument Serif", serif;
     font-weight: 600;
-    color: #2F1B12;
-    border-left: 10px solid #714423;
+    color: #2c1f14;
+    border-left: 10px solid #A3C9A8;
     padding-left: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -141,21 +146,21 @@ nav {
 }
 
 .comment-card {
-    background-color: #f8f4f0;
+    background-color: #ffffff;
     border-radius: 2rem 2rem 2rem 0;
     padding: 1.8rem 1.5rem;
-    box-shadow: 0 15px 20px -12px #43392F;
-    border: 1px solid #97704F;
+    box-shadow: 0 15px 20px -12px #C8A27C;
+    border: 1px solid #EBCDB7;
     transition: 0.2s;
 }
 
 .comment-card:hover {
     transform: scale(1.02);
-    border-color: #714423;
+    border-color: #A3C9A8;
 }
 
 .stars {
-    color: #dabd4c;
+    color: #C8A27C;
     font-size: 1.2rem;
     letter-spacing: 3px;
     margin-bottom: 0.8rem;
@@ -163,7 +168,8 @@ nav {
 
 .comment-txt {
     font-size: 1.1rem;
-    color: #2F1B12;
+    font-family: "Instrument Serif", serif;
+    color: #2c1f14;
     font-style: italic;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -174,30 +180,45 @@ nav {
     align-items: center;
     gap: 0.8rem;
     margin-top: 1rem;
-    color: #43392F;
+    color: #3A2119;
     font-weight: 600;
-    border-top: 2px dashed #97704F;
+    border-top: 2px dashed #EBCDB7;
     padding-top: 0.8rem;
 }
 
 .user i {
-    background-color: #DEAF84;
+    background-color: #EBCDB7;
     border-radius: 50%;
     padding: 0.5rem;
-    color: #2F1B12;
+    color: #3A2119;
 }
 
 .user span {
-    color: #714423;
+    color: #C8A27C;
 }
 
 /* About us */
 .About-us {
-    background-color: #ceb59d;
+    background-color: #692d2dd2;
     border-radius: 3%;
     padding: 50px 50px 20px 50px;
     font-size: 1.2rem;
     line-height: 2.5rem;
+    color: #EBCDB7;
+    font-family: "Instrument Serif", serif;
+}
+
+.About-us h1 {
+    font-family: "Instrument Serif", serif;
+    color: #F7CAD0;
+}
+
+.About-us p {
+    color: #EADFD3;
+}
+
+.About-us strong {
+    color: #F7CAD0;
 }
 
 #AboutUsPic {
@@ -205,7 +226,6 @@ nav {
     filter: blur(3px);
     border-radius: 3%;
     height: 29rem;
-
 }
 
 @media (max-width: 821px) {
@@ -216,9 +236,7 @@ nav {
 
 @media (max-width: 1281px) {
     .about-pic {
-
         display: none;
-
     }
 
     .about-text {
@@ -228,17 +246,20 @@ nav {
 
 /* Footer */
 footer {
-    background: linear-gradient(360deg, #2a1810 0%, #5b4d3e 100%);
+    background: linear-gradient(to bottom, #3A2119, #6b2d2d, #530630);
     padding: 2rem;
+    border-top: 3px solid #C8A27C;
+    transition: background 0.5s ease-out;
 }
 
 .footer-title {
     display: inline-block;
-    color: #DEAF84;
+    color: #F7CAD0;
+    font-family: "Instrument Serif", serif;
     font-size: 1.3rem;
     font-weight: 600;
     padding-bottom: 0.5rem;
-    border-bottom: 0.5px #ffdebe solid;
+    border-bottom: 0.5px #F7CAD0 solid;
 }
 
 .footer-links {
@@ -247,21 +268,22 @@ footer {
 }
 
 .footer-links a {
-    color: white;
+    color: #EADFD3;
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
+    font-family: "Instrument Serif", serif;
 }
 
 .footer-links a:hover {
-    color: #ffdab8;
+    color: #F7CAD0;
     transform: translateX(5px);
 }
 
 .footer-links i {
     margin-right: 8px;
     width: 20px;
-    color: #f9d3af;
+    color: #A3C9A8;
     font-size: 1.2rem;
 }
 
@@ -270,19 +292,12 @@ footer {
 }
 
 @keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(3px);
-    }
+    0%, 100% { transform: translateX(0); }
+    50%       { transform: translateX(3px); }
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(222, 175, 132, 0.3);
+    border-top: 1px solid rgba(235, 205, 183, 0.3);
     padding-top: 1.5rem;
     align-content: center;
 }

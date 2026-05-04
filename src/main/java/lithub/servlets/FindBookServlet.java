@@ -26,19 +26,22 @@ public class FindBookServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         
         BookRepository repo = new BookRepository();
-        List<BookDetails> bookList = repo.getAllBooks();
-       
-        // 3. Convert the Java object (list of books) to a JSON string using Jackson
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(bookList);
+        String sectionParam = request.getParameter("section");
 
-        // 4. Send the JSON string back to the frontend
-        PrintWriter out = response.getWriter();
-        out.print(jsonString);
-        out.flush();
+        List<BookDetails> books;
+        if(sectionParam != null && !sectionParam.isEmpty()) {
+        	books = repo.getBooksBySection(sectionParam);
+        }
+        else {
+        	books = repo.getAllBooks();
+        }
+       
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(books);
+
+        response.getWriter().write(json);
     
 		
-		// next we have to modify our js code to talk to this servlet
 	}
 
 }

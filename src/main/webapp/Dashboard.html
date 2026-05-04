@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -30,10 +31,13 @@
 			</button>
 			<div class="collapse navbar-collapse " id="navbarNavAltMarkup">
 				<div class="navbar-nav ms-auto">
-					<a class="nav-link active text-white" aria-current="page" href="HomePage.html">HOME</a> 
-					<a class="nav-link active text-white" aria-current="page" href="findabook.html">FIND A BOOK</a>
-					<a class="nav-link active text-white" aria-current="page" href="bloghomepage.html">BLOGS</a>
-					
+					<a class="nav-link active text-white" aria-current="page"
+						href="HomePage.html">HOME</a> <a
+						class="nav-link active text-white" aria-current="page"
+						href="findabook.html">FIND A BOOK</a> <a
+						class="nav-link active text-white" aria-current="page"
+						href="bloghomepage.html">BLOGS</a>
+
 					<button class="btn btn-outline-light" id="logoutBtn" type="button">LOG
 						OUT</button>
 				</div>
@@ -130,7 +134,14 @@
 				<!-- filled by JS -->
 			</div>
 		</div>
-
+		<!-- BLOG SECTION -->
+		<div class="blogs-section">
+			<h2 class="clubs-heading">
+				<i class="fas fa-pen-nib"></i> Latest Blogs
+			</h2>
+			<div class="blogs-grid" id="blogsGrid"></div>
+		</div>
+		<!-- BLOG SECTION -->
 
 		<div class="export-section">
 			<h4>
@@ -184,28 +195,33 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="auth.js"></script>
+	<script src="auth.js"></script>
 	<script src="DashboardJS.js"></script>
-	
+
 	<!-- Club Detail Modal -->
-		<div id="clubModal" class="club-modal-overlay"
-			onclick="closeClubModal(event)">
-			<div class="club-modal-box">
-				<button class="club-modal-close" onclick="closeClubModal()">&times;</button>
-				<img id="modalCover" src="" alt="" class="club-modal-cover">
-				<div class="club-modal-body">
-					<h2 id="modalName"></h2>
-					<p id="modalTagline" class="club-modal-tagline"></p>
-					<p id="modalDesc" class="club-modal-desc"></p>
-					<div class="club-modal-meta">
-						<span><i class="fas fa-users"></i> <span id="modalMembers"></span>
-							members</span> <span><i class="fas fa-book-open"></i> Currently
-							Reading: <span id="modalBook"></span></span>
-					</div>
+	<div id="clubModal" class="club-modal-overlay"
+		onclick="closeClubModal(event)">
+		<div class="club-modal-box">
+			<button class="club-modal-close" onclick="closeClubModal()">&times;</button>
+			<img id="modalCover" src="" alt="" class="club-modal-cover">
+			<div class="club-modal-body">
+				<h2 id="modalName"></h2>
+				<p id="modalTagline" class="club-modal-tagline"></p>
+				<p id="modalDesc" class="club-modal-desc"></p>
+				<div class="club-modal-meta">
+					<span><i class="fas fa-users"></i> <span id="modalMembers"></span>
+						members</span> <span><i class="fas fa-book-open"></i> Currently
+						Reading: <span id="modalBook"></span></span>
 				</div>
 			</div>
 		</div>
-	
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="auth.js"></script>
+
+
 </body>
 
 </html>

@@ -33,7 +33,15 @@ public class UserClubsServlet extends HttpServlet {
         //     return;
         // }
         // int userId = (int) session.getAttribute("userId");
-        int userId = 1; // hardcoded for testing
+        //int userId = 1; // hardcoded for testing
+        
+        String userIdParam = req.getParameter("userId");
+		if (userIdParam == null) {
+		    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		    resp.getWriter().write("{\"error\":\"Not logged in\"}");
+		    return;
+		}
+		int userId = Integer.parseInt(userIdParam);
 
         String sql = """
                 SELECT

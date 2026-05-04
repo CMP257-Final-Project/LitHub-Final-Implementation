@@ -41,17 +41,6 @@ body.theme-cant-put-down {
   --tag-text:     #b5182a;
 }
 
-/* MIND BENDING
-body.theme-mind-bending {
-  --primary:      #00c2ff;
-  --primary-dark: #0077b6;
-  --accent:       #0f172a;
-  --text-hero:    #e0f2fe;
-  --card-bg:      #111827;
-  --tag-bg:       #1e3a8a;
-  --tag-text:     #93c5fd;
-} */
-
 /* MAKE ME CRY */
 body.theme-make-me-cry {
   --primary:      #3b82f6;
@@ -94,7 +83,7 @@ body.theme-laugh-out-loud {
   left: 2rem;
   color: var(--text-hero);
   text-decoration: none;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 1.8rem;
   opacity: 0.75;
   display: flex;
@@ -128,7 +117,7 @@ body.theme-laugh-out-loud {
 }
  
 .mood-hero-sub {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 2rem;
   color: var(--text-hero);
   opacity: 0.75;
@@ -203,10 +192,6 @@ body.theme-dark-twisted #Next {
     background-color: #a855f7;
     color: #e8d5ff;
 }
-body.theme-dark-twisted #Next {
-    background-color: #a855f7;
-    color: #e8d5ff;
-}
 body.theme-make-me-cry #moodTagline ,#moodSub , .mood-back-btn{
   color:#f8f8f8;
 }
@@ -225,7 +210,7 @@ body.theme-dark-twisted .mood-club-desc {
 }
  
 .mood-section-header p {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 1.9rem;
   color: rgba(23, 16, 10, 0.6);
   padding-left: 1.3rem;
@@ -275,7 +260,7 @@ body.theme-dark-twisted .mood-club-desc {
   padding: 0.25rem 0.7rem;
   border-radius: 20px;
   margin-bottom: 0.5rem;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   text-transform: uppercase;
 }
  
@@ -289,7 +274,7 @@ body.theme-dark-twisted .mood-club-desc {
 }
  
 .mood-book-author {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 0.85rem;
   color: rgba(44,31,20,0.6);
   margin-bottom: 0.8rem;
@@ -302,7 +287,7 @@ body.theme-dark-twisted .mood-club-desc {
   border: none;
   border-radius: 20px;
   padding: 0.5rem;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -355,7 +340,7 @@ body.theme-dark-twisted .mood-club-desc {
 }
  
 .mood-club-desc {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 0.9rem;
   color: rgba(44,31,20,0.6);
   margin-bottom: 1rem;
@@ -363,7 +348,7 @@ body.theme-dark-twisted .mood-club-desc {
 }
  
 .mood-club-members {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 0.82rem;
   color: var(--primary-dark);
   font-weight: 600;
@@ -376,7 +361,7 @@ body.theme-dark-twisted .mood-club-desc {
   color: var(--primary-dark);
   border-radius: 20px;
   padding: 0.5rem 1.3rem;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -427,16 +412,3 @@ body.theme-dark-twisted .mood-club-desc {
     flex: 0 0 150px;
   }
 }
- 
-
-
-
-
-
-
-
-
-
-
-
-
