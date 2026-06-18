@@ -148,14 +148,15 @@ POST /LitHubBackend/SaveBookServlet?userId=1&bookId=5
 ```
 lithub/
 ├── src/
-│   ├── main/
-│   │   ├── java/lithub/
-│   │   │   ├── servlets/
-│   │   │   ├── utils/
-│   │   │   └── models/
-│   │   └── webapp/
-│   │       ├── Img/
-│   │       ├── META-INF/
-│   │       └── WEB-INF/
-└── └──
+│   └── main/
+│       ├── java/lithub/
+│       │   ├── servlets/
+│       │   ├── utils/
+│       │   └── models/
+│       └── webapp/
+│           ├── Img/
+│           ├── META-INF/
+│           └── WEB-INF/
+├── .gitignore
+└── README.md
 ```
