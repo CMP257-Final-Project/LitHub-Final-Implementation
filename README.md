@@ -1,26 +1,13 @@
 # LitHub - Book Club & Reading Tracker
 
 <div align="center">
-
-![LitHub Logo](https://img.shields.io/badge/LitHub-Reading%20Tracker-6C63FF?style=for-the-badge&logo=bookstack)
+    
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Java](https://img.shields.io/badge/Java-21-orange)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
 </div>
-
----
-
-##  Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -91,13 +78,9 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/lithub.git
-cd lithub
 
 # 2. Set up the database locally
 # Create a MySQL database named 'lithub'
-# Run the schema.sql file to create tables
-mysql -u root -p < database/schema.sql
 
 # 3. Update database credentials
 # Edit src/main/java/lithub/utils/DatabaseUtil.java
@@ -137,16 +120,6 @@ npm run preview
 POST /api/book-action    # markRead, removeWishlist, removeRead, rate
 ```
 
-**Request Body Example:**
-```json
-{
-    "userId": 1,
-    "action": "rate",
-    "userBookId": 101,
-    "rating": 5
-}
-```
-
 ### Dashboard
 ```
 GET /api/dashboard       # Get user dashboard data
@@ -181,22 +154,8 @@ lithub/
 │   │   │   ├── utils/
 │   │   │   └── models/
 │   │   └── webapp/
-│   │       ├── pages/
-│   │       ├── css/
-│   │       ├── js/
+│   │       ├── Img/
+│   │       ├── META-INF/
 │   │       └── WEB-INF/
-├── database/
-│   ├── schema.sql
-│   └── sample_data.sql
-├── README.md
-└── LICENSE
+└── └──
 ```
-
----
-
-##  Acknowledgments
-
-- [Jakarta EE](https://jakarta.ee/) - Servlet API
-- [Jackson](https://github.com/FasterXML/jackson) - JSON processing
-- [Font Awesome](https://fontawesome.com/) - Icons
-- [MySQL](https://www.mysql.com/) - Database
