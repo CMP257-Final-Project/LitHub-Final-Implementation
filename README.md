@@ -63,6 +63,7 @@
 - Apache Tomcat 10.1
 - Git
 - VS Code
+- Eclipse
 
 ---
 
@@ -101,57 +102,7 @@ The application starts at: **http://localhost:8080/lithub/**
 npm run build
 npm run preview
 ```
-
 ---
-
-##  API Endpoints
-
-### Book Operations
-```
-POST /api/book-action    # markRead, removeWishlist, removeRead, rate
-```
-
-### Dashboard
-```
-GET /api/dashboard       # Get user dashboard data
-```
-
-### Blogs
-```
-GET  /api/blogs          # Get user's blogs
-POST /api/blogs          # Create a new blog
-```
-
-### Book Clubs
-```
-GET /api/user-clubs      # Get user's joined clubs
-```
-
-### Save Book
-```
-POST /LitHubBackend/SaveBookServlet?userId=1&bookId=5
-```
-
----
-
-##  Project Structure
-
-```
-lithub/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── lithub/
-│   │   │       ├── servlets/
-│   │   │       ├── utils/
-│   │   │       └── models/
-│   │   └── webapp/
-│   │       ├── Img/
-│   │       ├── WEB-INF/
-│   │       └── index.jsp
-├── .gitignore
-└── README.md
-```
 
 ## API Endpoints
 
@@ -177,7 +128,27 @@ lithub/
 |--------|----------|-------------|
 | GET | `/api/user-clubs` | Fetch clubs the user has joined |
 
+---
+##  Project Structure
+
+```
+lithub/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── lithub/
+│   │   │       ├── servlets/
+│   │   │       ├── utils/
+│   │   │       └── models/
+│   │   └── webapp/
+│   │       ├── Img/
+│   │       ├── WEB-INF/
+│   │       └── index.jsp
+├── .gitignore
+└── README.md
+```
+
 ## Contributors
-- [Afreen Reyas](https://linkedin.com/in/afreen-reyas)
-- [Jerusha Paul](https://linkedin.com/in/jerusha-paul) 
-- [Sidrah Abdulrahman](https://linkedin.com/in/sidrah-abdulrahman) 
+- [Afreen Reyas](https://www.linkedin.com/in/afreen-r-88704436b/)
+- [Jerusha Paul](https://www.linkedin.com/in/jerusha-paul/) 
+- [Sidrah Abdulrahman]() 
