@@ -149,6 +149,7 @@ lithub/
 ```
 
 ## Contributors
+- [Syeda Fatima Alzahra](https://www.linkedin.com/in/syeda-alzahra-260120377/)
 - [Afreen Reyas](https://www.linkedin.com/in/afreen-r-88704436b/)
 - [Jerusha Paul](https://www.linkedin.com/in/jerusha-paul/) 
 - [Sidrah Abdulrahman]() 
