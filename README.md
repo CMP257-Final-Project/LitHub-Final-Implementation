@@ -95,15 +95,6 @@
 
 The application starts at: **http://localhost:8080/lithub/**
 
-### Development Mode
-
-```bash
-npm install
-npm run dev
-```
-
-The development server starts at **http://localhost:5173**
-
 ### Production Build
 
 ```bash
@@ -148,15 +139,45 @@ POST /LitHubBackend/SaveBookServlet?userId=1&bookId=5
 ```
 lithub/
 ├── src/
-│   └── main/
-│       ├── java/lithub/
-│       │   ├── servlets/
-│       │   ├── utils/
-│       │   └── models/
-│       └── webapp/
-│           ├── Img/
-│           ├── META-INF/
-│           └── WEB-INF/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── lithub/
+│   │   │       ├── servlets/
+│   │   │       ├── utils/
+│   │   │       └── models/
+│   │   └── webapp/
+│   │       ├── Img/
+│   │       ├── WEB-INF/
+│   │       └── index.jsp
 ├── .gitignore
 └── README.md
 ```
+
+## API Endpoints
+
+### Book Operations
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/book-action` | Mark books as read, remove from wishlist, rate books |
+| POST | `/SaveBookServlet` | Save a book to user's wishlist |
+
+### Dashboard
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/dashboard` | Fetch user's reading statistics and activity |
+
+### Blogs
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/blogs` | Fetch user's blogs |
+| POST | `/api/blogs` | Create a new blog post |
+
+### Book Clubs
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/user-clubs` | Fetch clubs the user has joined |
+
+## Contributors
+- [Afreen Reyas](https://linkedin.com/in/afreen-reyas)
+- [Jerusha Paul](https://linkedin.com/in/jerusha-paul) 
+- [Sidrah Abdulrahman](https://linkedin.com/in/sidrah-abdulrahman) 
